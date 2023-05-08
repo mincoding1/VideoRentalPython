@@ -13,14 +13,11 @@ class Tests(TestCase):
         self.assertIsNotNone(self.customer)
 
     def test_statement_for_no_rental(self):
-        #act
-        statement = self.customer.statement()
-
         #assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + 'Amount owed is 0\n'
-                + 'You earned 0 frequent renter points')
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + 'Amount owed is 0\n'
+                         + 'You earned 0 frequent renter points')
 
     def test_statement_for_regular_movie_rental_for_less_than_3_days(self):
         #arrange
@@ -29,15 +26,12 @@ class Tests(TestCase):
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
 
-        #act
-        statement = self.customer.statement()
-
         #assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + '\tTITLE_NOT_IMPORTANT\t2.0\n'
-                + 'Amount owed is 2.0\n'
-                + 'You earned 1 frequent renter points')
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t2.0\n'
+                         + 'Amount owed is 2.0\n'
+                         + 'You earned 1 frequent renter points')
 
     def test_statement_for_new_release_movie(self):
         #arrange
@@ -46,15 +40,12 @@ class Tests(TestCase):
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
 
-        #act
-        statement = self.customer.statement()
-
-        # assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + '\tTITLE_NOT_IMPORTANT\t3.0\n'
-                + 'Amount owed is 3.0\n'
-                + 'You earned 1 frequent renter points')
+        #assert
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t3.0\n'
+                         + 'Amount owed is 3.0\n'
+                         + 'You earned 1 frequent renter points')
 
     def test_statement_for_childrens_movie_rental_more_than_3_days(self):
         #arrange
@@ -63,15 +54,12 @@ class Tests(TestCase):
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
 
-        #act
-        statement = self.customer.statement()
-
-        # assert
-        self.assertEqual(statement,
-                 'Rental Record for NAME_NOT_IMPORTANT\n'
-                 + '\tTITLE_NOT_IMPORTANT\t3.0\n'
-                 + 'Amount owed is 3.0\n'
-                 + 'You earned 1 frequent renter points')
+        #assert
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t3.0\n'
+                         + 'Amount owed is 3.0\n'
+                         + 'You earned 1 frequent renter points')
 
     def test_statement_for_childrens_movie_rental_more_than_4_days(self):
         #arrange
@@ -80,15 +68,12 @@ class Tests(TestCase):
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
 
-        #act
-        statement = self.customer.statement()
-
-        # assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + '\tTITLE_NOT_IMPORTANT\t1.5\n'
-                + 'Amount owed is 1.5\n'
-                + 'You earned 1 frequent renter points')
+        #assert
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t1.5\n'
+                         + 'Amount owed is 1.5\n'
+                         + 'You earned 1 frequent renter points')
 
     def test_statement_for_new_release_movie_rental_more_than_1_day(self):
         # arrange
@@ -97,15 +82,12 @@ class Tests(TestCase):
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
 
-        # act
-        statement = self.customer.statement()
-
         # assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + '\tTITLE_NOT_IMPORTANT\t6.0\n'
-                + 'Amount owed is 6.0\n'
-                + 'You earned 2 frequent renter points')
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t6.0\n'
+                         + 'Amount owed is 6.0\n'
+                         + 'You earned 2 frequent renter points')
 
     def test_statement_for_few_movie_rental(self):
         # arrange
@@ -116,14 +98,11 @@ class Tests(TestCase):
         self.customer.add_rental(Rental(new_release_movie, 4))
         self.customer.add_rental(Rental(childrens_movie, 4))
 
-        # act
-        statement = self.customer.statement()
-
         # assert
-        self.assertEqual(statement,
-                'Rental Record for NAME_NOT_IMPORTANT\n'
-                + '\tTITLE_NOT_IMPORTANT\t2.0\n'
-                + '\tTITLE_NOT_IMPORTANT\t12.0\n'
-                + '\tTITLE_NOT_IMPORTANT\t3.0\n'
-                + 'Amount owed is 17.0\n'
-                + 'You earned 4 frequent renter points')
+        self.assertEqual(self.customer.statement(),
+                         'Rental Record for NAME_NOT_IMPORTANT\n'
+                         + '\tTITLE_NOT_IMPORTANT\t2.0\n'
+                         + '\tTITLE_NOT_IMPORTANT\t12.0\n'
+                         + '\tTITLE_NOT_IMPORTANT\t3.0\n'
+                         + 'Amount owed is 17.0\n'
+                         + 'You earned 4 frequent renter points')
