@@ -34,7 +34,7 @@ class Customer:
     def get_frequent_renter_points(self):
         frequent_renter_points = 0
         for each in self.__rentals:
-            frequent_renter_points += each.get_frequent_renter_points_for()
+            frequent_renter_points += each.get_movie().get_frequent_renter_points_for(each.get_days_rented())
         return frequent_renter_points
 
     def get_total_amount(self):
