@@ -10,25 +10,29 @@ class Customer:
         return self.__name
 
     def statement(self):
-        frequent_renter_points = 0
         result = "Rental Record for " + self.get_name() + "\n"
 
         for each in self.__rentals:
-            # determine amounts for each line
-            # add frequent renter points
-            frequent_renter_points += 1
-            # add bonus for a two day new release rental
-            if (each.get_movie().get_price_code() == Movie.NEW_RELEASE) and each.get_days_rented() > 1:
-                frequent_renter_points += 1
-
             # show figures for this rental
             result += "\t" + each.get_movie().get_title() + "\t" + str(each.get_charge()) + "\n"
 
         # add footer lines
         result += "Amount owed is " + str(self.get_total_amount()) + "\n"
-        result += "You earned " + str(frequent_renter_points) + " frequent renter points"
+        result += "You earned " + str(self.get_frequent_renter_points()) + " frequent renter points"
 
         return result
+
+    def get_frequent_renter_points(self):
+        frequent_renter_points = 0
+        for each in self.__rentals:
+            frequent_renter_points += self.get_frequent_renter_points_for(each)
+        return frequent_renter_points
+
+    def get_frequent_renter_points_for(self, each):
+        # add bonus for a two day new release rental
+        if (each.get_movie().get_price_code() == Movie.NEW_RELEASE) and each.get_days_rented() > 1:
+            return 2
+        return 1
 
     def get_total_amount(self):
         total_amount = 0
