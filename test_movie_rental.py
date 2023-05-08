@@ -21,10 +21,7 @@ class Tests(TestCase):
 
     def test_statement_for_regular_movie_rental_for_less_than_3_days(self):
         #arrange
-        movie = Movie(TITLE, Movie.REGULAR)
-        days_rented = 2
-        rental = Rental(movie, days_rented)
-        self.customer.add_rental(rental)
+        self.customer.add_rental(self.create_rental_for(2, Movie.REGULAR))
 
         #assert
         self.assertEqual(self.customer.statement(),
@@ -33,12 +30,14 @@ class Tests(TestCase):
                          + 'Amount owed is 2.0\n'
                          + 'You earned 1 frequent renter points')
 
+    def create_rental_for(self, days_rented, price_code):
+        movie = Movie(TITLE, price_code)
+        rental = Rental(movie, days_rented)
+        return rental
+
     def test_statement_for_new_release_movie(self):
         #arrange
-        movie = Movie(TITLE, Movie.NEW_RELEASE)
-        days_rented = 1
-        rental = Rental(movie, days_rented)
-        self.customer.add_rental(rental)
+        self.customer.add_rental(self.create_rental_for(1, Movie.NEW_RELEASE))
 
         #assert
         self.assertEqual(self.customer.statement(),
@@ -49,10 +48,7 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_3_days(self):
         #arrange
-        movie = Movie(TITLE, Movie.CHILDRENS)
-        days_rented = 4
-        rental = Rental(movie, days_rented)
-        self.customer.add_rental(rental)
+        self.customer.add_rental(self.create_rental_for(4, Movie.CHILDRENS))
 
         #assert
         self.assertEqual(self.customer.statement(),
@@ -63,10 +59,7 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_4_days(self):
         #arrange
-        movie = Movie(TITLE, Movie.CHILDRENS)
-        days_rented = 3
-        rental = Rental(movie, days_rented)
-        self.customer.add_rental(rental)
+        self.customer.add_rental(self.create_rental_for(3, Movie.CHILDRENS))
 
         #assert
         self.assertEqual(self.customer.statement(),
@@ -77,10 +70,7 @@ class Tests(TestCase):
 
     def test_statement_for_new_release_movie_rental_more_than_1_day(self):
         # arrange
-        movie = Movie(TITLE, Movie.NEW_RELEASE)
-        days_rented = 2
-        rental = Rental(movie, days_rented)
-        self.customer.add_rental(rental)
+        self.customer.add_rental(self.create_rental_for(2, Movie.NEW_RELEASE))
 
         # assert
         self.assertEqual(self.customer.statement(),
@@ -91,12 +81,9 @@ class Tests(TestCase):
 
     def test_statement_for_few_movie_rental(self):
         # arrange
-        regular_movie = Movie(TITLE, Movie.REGULAR)
-        new_release_movie = Movie(TITLE, Movie.NEW_RELEASE)
-        childrens_movie = Movie(TITLE, Movie.CHILDRENS)
-        self.customer.add_rental(Rental(regular_movie, 1))
-        self.customer.add_rental(Rental(new_release_movie, 4))
-        self.customer.add_rental(Rental(childrens_movie, 4))
+        self.customer.add_rental(self.create_rental_for(1, Movie.REGULAR))
+        self.customer.add_rental(self.create_rental_for(4, Movie.NEW_RELEASE))
+        self.customer.add_rental(self.create_rental_for(4, Movie.CHILDRENS))
 
         # assert
         self.assertEqual(self.customer.statement(),
