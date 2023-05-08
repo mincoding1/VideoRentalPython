@@ -1,6 +1,7 @@
 from unittest import TestCase
 from customer import Customer, Rental, Movie
 
+TITLE = 'TITLE_NOT_IMPORTANT'
 NAME = 'NAME_NOT_IMPORTANT'
 
 class Tests(TestCase):
@@ -23,7 +24,7 @@ class Tests(TestCase):
 
     def test_statement_for_regular_movie_rental_for_less_than_3_days(self):
         #arrange
-        movie = Movie('TITLE_NOT_IMPORTANT', Movie.REGULAR)
+        movie = Movie(TITLE, Movie.REGULAR)
         days_rented = 2
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
@@ -40,7 +41,7 @@ class Tests(TestCase):
 
     def test_statement_for_new_release_movie(self):
         #arrange
-        movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
+        movie = Movie(TITLE, Movie.NEW_RELEASE)
         days_rented = 1
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
@@ -57,7 +58,7 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_3_days(self):
         #arrange
-        movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
+        movie = Movie(TITLE, Movie.CHILDRENS)
         days_rented = 4
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
@@ -74,7 +75,7 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_4_days(self):
         #arrange
-        movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
+        movie = Movie(TITLE, Movie.CHILDRENS)
         days_rented = 3
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
@@ -91,7 +92,7 @@ class Tests(TestCase):
 
     def test_statement_for_new_release_movie_rental_more_than_1_day(self):
         # arrange
-        movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
+        movie = Movie(TITLE, Movie.NEW_RELEASE)
         days_rented = 2
         rental = Rental(movie, days_rented)
         self.customer.add_rental(rental)
@@ -108,9 +109,9 @@ class Tests(TestCase):
 
     def test_statement_for_few_movie_rental(self):
         # arrange
-        regular_movie = Movie('TITLE_NOT_IMPORTANT', Movie.REGULAR)
-        new_release_movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
-        childrens_movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
+        regular_movie = Movie(TITLE, Movie.REGULAR)
+        new_release_movie = Movie(TITLE, Movie.NEW_RELEASE)
+        childrens_movie = Movie(TITLE, Movie.CHILDRENS)
         self.customer.add_rental(Rental(regular_movie, 1))
         self.customer.add_rental(Rental(new_release_movie, 4))
         self.customer.add_rental(Rental(childrens_movie, 4))
