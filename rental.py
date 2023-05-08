@@ -5,6 +5,12 @@ class Rental:
         self.__days_rented = daysRented
         self.__movie = movie
 
+    def get_frequent_renter_points_for(self):
+        # add bonus for a two day new release rental
+        if (self.get_movie().get_price_code() == Movie.NEW_RELEASE) and self.get_days_rented() > 1:
+            return 2
+        return 1
+
     def get_charge(self):
         this_amount = 0.0
         if self.get_movie().get_price_code() == Movie.REGULAR:

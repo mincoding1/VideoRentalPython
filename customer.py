@@ -25,14 +25,8 @@ class Customer:
     def get_frequent_renter_points(self):
         frequent_renter_points = 0
         for each in self.__rentals:
-            frequent_renter_points += self.get_frequent_renter_points_for(each)
+            frequent_renter_points += each.get_frequent_renter_points_for()
         return frequent_renter_points
-
-    def get_frequent_renter_points_for(self, each):
-        # add bonus for a two day new release rental
-        if (each.get_movie().get_price_code() == Movie.NEW_RELEASE) and each.get_days_rented() > 1:
-            return 2
-        return 1
 
     def get_total_amount(self):
         total_amount = 0
