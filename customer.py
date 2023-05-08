@@ -17,8 +17,6 @@ class Customer:
         for each in self.__rentals:
 
             # determine amounts for each line
-            this_amount = each.get_charge()
-
             # add frequent renter points
             frequent_renter_points += 1
             # add bonus for a two day new release rental
@@ -26,8 +24,8 @@ class Customer:
                 frequent_renter_points += 1
 
             # show figures for this rental
-            result += "\t" + each.get_movie().get_title() + "\t" + str(this_amount) + "\n"
-            total_amount += this_amount
+            result += "\t" + each.get_movie().get_title() + "\t" + str(each.get_charge()) + "\n"
+            total_amount += each.get_charge()
 
         # add footer lines
         result += "Amount owed is " + str(total_amount) + "\n"
