@@ -2,16 +2,16 @@ from unittest import TestCase
 from customer import Customer, Rental, Movie
 
 class Tests(TestCase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.customer = Customer('NAME_NOT_IMPORTANT')
+
     def test_return_new_customer(self):
-        customer = Customer('NAME_NOT_IMPORTANT')
-        self.assertIsNotNone(customer)
+        self.assertIsNotNone(self.customer)
 
     def test_statement_for_no_rental(self):
-        #arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
-
         #act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         #assert
         self.assertEqual(statement,
@@ -21,14 +21,13 @@ class Tests(TestCase):
 
     def test_statement_for_regular_movie_rental_for_less_than_3_days(self):
         #arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         movie = Movie('TITLE_NOT_IMPORTANT', Movie.REGULAR)
         days_rented = 2
         rental = Rental(movie, days_rented)
-        customer.add_rental(rental)
+        self.customer.add_rental(rental)
 
         #act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         #assert
         self.assertEqual(statement,
@@ -39,14 +38,13 @@ class Tests(TestCase):
 
     def test_statement_for_new_release_movie(self):
         #arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
         days_rented = 1
         rental = Rental(movie, days_rented)
-        customer.add_rental(rental)
+        self.customer.add_rental(rental)
 
         #act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         # assert
         self.assertEqual(statement,
@@ -57,14 +55,13 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_3_days(self):
         #arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
         days_rented = 4
         rental = Rental(movie, days_rented)
-        customer.add_rental(rental)
+        self.customer.add_rental(rental)
 
         #act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         # assert
         self.assertEqual(statement,
@@ -75,14 +72,13 @@ class Tests(TestCase):
 
     def test_statement_for_childrens_movie_rental_more_than_4_days(self):
         #arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
         days_rented = 3
         rental = Rental(movie, days_rented)
-        customer.add_rental(rental)
+        self.customer.add_rental(rental)
 
         #act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         # assert
         self.assertEqual(statement,
@@ -93,14 +89,13 @@ class Tests(TestCase):
 
     def test_statement_for_new_release_movie_rental_more_than_1_day(self):
         # arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
         days_rented = 2
         rental = Rental(movie, days_rented)
-        customer.add_rental(rental)
+        self.customer.add_rental(rental)
 
         # act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         # assert
         self.assertEqual(statement,
@@ -111,16 +106,15 @@ class Tests(TestCase):
 
     def test_statement_for_few_movie_rental(self):
         # arrange
-        customer = Customer('NAME_NOT_IMPORTANT')
         regular_movie = Movie('TITLE_NOT_IMPORTANT', Movie.REGULAR)
         new_release_movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
         childrens_movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
-        customer.add_rental(Rental(regular_movie, 1))
-        customer.add_rental(Rental(new_release_movie, 4))
-        customer.add_rental(Rental(childrens_movie, 4))
+        self.customer.add_rental(Rental(regular_movie, 1))
+        self.customer.add_rental(Rental(new_release_movie, 4))
+        self.customer.add_rental(Rental(childrens_movie, 4))
 
         # act
-        statement = customer.statement()
+        statement = self.customer.statement()
 
         # assert
         self.assertEqual(statement,
