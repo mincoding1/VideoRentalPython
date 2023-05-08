@@ -108,3 +108,25 @@ class Tests(TestCase):
                 + '\tTITLE_NOT_IMPORTANT\t6.0\n'
                 + 'Amount owed is 6.0\n'
                 + 'You earned 2 frequent renter points')
+
+    def test_statement_for_few_movie_rental(self):
+        # arrange
+        customer = Customer('NAME_NOT_IMPORTANT')
+        regular_movie = Movie('TITLE_NOT_IMPORTANT', Movie.REGULAR)
+        new_release_movie = Movie('TITLE_NOT_IMPORTANT', Movie.NEW_RELEASE)
+        childrens_movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
+        customer.add_rental(Rental(regular_movie, 1))
+        customer.add_rental(Rental(new_release_movie, 4))
+        customer.add_rental(Rental(childrens_movie, 4))
+
+        # act
+        statement = customer.statement()
+
+        # assert
+        self.assertEqual(statement,
+                'Rental Record for NAME_NOT_IMPORTANT\n'
+                + '\tTITLE_NOT_IMPORTANT\t2.0\n'
+                + '\tTITLE_NOT_IMPORTANT\t12.0\n'
+                + '\tTITLE_NOT_IMPORTANT\t3.0\n'
+                + 'Amount owed is 17.0\n'
+                + 'You earned 4 frequent renter points')
