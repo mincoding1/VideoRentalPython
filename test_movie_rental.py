@@ -1,5 +1,8 @@
 from unittest import TestCase
 from customer import Customer, Rental, Movie
+from regular_movie import RegularMovie
+from new_release_movie import NewReleaseMovie
+from children_movie import ChildrenMovie
 
 TITLE = 'TITLE_NOT_IMPORTANT'
 NAME = 'NAME_NOT_IMPORTANT'
@@ -31,9 +34,19 @@ class Tests(TestCase):
                          + 'You earned 1 frequent renter points')
 
     def create_rental_for(self, days_rented, price_code):
-        movie = Movie(TITLE, price_code)
+        movie = self.get_movie(price_code)
         rental = Rental(movie, days_rented)
         return rental
+
+    def get_movie(self, price_code):
+        if price_code == Movie.REGULAR:
+            return RegularMovie(TITLE)
+        if price_code == Movie.NEW_RELEASE:
+            return NewReleaseMovie(TITLE)
+        if price_code == Movie.CHILDRENS:
+            return ChildrenMovie(TITLE)
+        else:
+            return None
 
     def test_statement_for_new_release_movie(self):
         #arrange
@@ -96,7 +109,7 @@ class Tests(TestCase):
 
     def test_statement_for_regular_movie_rental_more_than_5_day(self):
         # arrange
-        movie = Movie(TITLE, Movie.REGULAR)
+        movie = self.get_movie(Movie.REGULAR)
         movie.set_price_code(Movie.REGULAR)
         self.customer.add_rental(Rental(movie, 5))
 

@@ -1,4 +1,6 @@
-class Movie:
+from abc import ABC, abstractmethod
+
+class Movie(ABC):
     CHILDRENS = 2
     NEW_RELEASE = 1
     REGULAR = 0
@@ -7,25 +9,13 @@ class Movie:
         self.__title = title
         self.__price_code = price_code
 
+    @abstractmethod
     def get_charge_for(self, days_rented):
-        this_amount = 0.0
-        if self.get_price_code() == Movie.REGULAR:
-            this_amount += 2
-            if days_rented > 2:
-                this_amount += (days_rented - 2) * 1.5
-        elif self.get_price_code() == Movie.NEW_RELEASE:
-            this_amount += days_rented * 3
-        elif self.get_price_code() == Movie.CHILDRENS:
-            this_amount += 1.5
-            if days_rented > 3:
-                this_amount += (days_rented - 3) * 1.5
-        return this_amount
+        pass
 
+    @abstractmethod
     def get_frequent_renter_points_for(self, days_rented):
-        # add bonus for a two day new release rental
-        if (self.get_price_code() == Movie.NEW_RELEASE) and days_rented > 1:
-            return 2
-        return 1
+        pass
 
     def get_price_code(self):
         return self.__price_code
