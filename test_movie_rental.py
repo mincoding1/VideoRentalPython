@@ -1,10 +1,12 @@
 from unittest import TestCase
 from customer import Customer, Rental, Movie
 
+NAME = 'NAME_NOT_IMPORTANT'
+
 class Tests(TestCase):
     def setUp(self) -> None:
         super().setUp()
-        self.customer = Customer('NAME_NOT_IMPORTANT')
+        self.customer = Customer(NAME)
 
     def test_return_new_customer(self):
         self.assertIsNotNone(self.customer)
