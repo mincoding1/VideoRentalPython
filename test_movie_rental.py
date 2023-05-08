@@ -72,3 +72,21 @@ class Tests(TestCase):
                  + '\tTITLE_NOT_IMPORTANT\t3.0\n'
                  + 'Amount owed is 3.0\n'
                  + 'You earned 1 frequent renter points')
+
+    def test_statement_for_childrens_movie_rental_more_than_4_days(self):
+        #arrange
+        customer = Customer('NAME_NOT_IMPORTANT')
+        movie = Movie('TITLE_NOT_IMPORTANT', Movie.CHILDRENS)
+        days_rented = 3
+        rental = Rental(movie, days_rented)
+        customer.add_rental(rental)
+
+        #act
+        statement = customer.statement()
+
+        # assert
+        self.assertEqual(statement,
+                'Rental Record for NAME_NOT_IMPORTANT\n'
+                + '\tTITLE_NOT_IMPORTANT\t1.5\n'
+                + 'Amount owed is 1.5\n'
+                + 'You earned 1 frequent renter points')
